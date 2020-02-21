@@ -9,7 +9,7 @@ import optparse
 parser = optparse.OptionParser()
 parser.add_option('-s', '--src', action='store', dest="source", help='The input-file')
 parser.add_option('-o', '--output', action='store', dest="output", help='The output file-name (default: final.jpg)', default='final.jpg')
-parser.add_option('-b', '--bar-width', action="store", dest="barwidth", help='The width of each bar in the final image (default: 5px)', default=5)
+parser.add_option('-w', '--bar-width', action="store", dest="barwidth", help='The width of each bar in the final image (default: 5px)', default=5)
 parser.add_option('-i', '--interval', action="store", dest="interval", help="The interval where each frame gets picked out of the video (default: 1000 (ms))", default=1000)
 parser.add_option('-v', '--verbose', action="store_true", dest="verbose", help="Enables verbose-output")
 
