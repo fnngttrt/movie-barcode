@@ -1,6 +1,10 @@
 # movie-barcode
 A simple program to create movie-barcodes
 
+## What are movie barcodes?
+Its a technique, where every frame in a movie gets compressed into a line, giving an idea of the colour palette used by the filmmakers.
+And it looks really cool!
+
 # Example:
 Standard Bar-width
 ![Barode with standard width](https://i.imgur.com/aqyMGzm.jpg)
