@@ -21,7 +21,7 @@ sudo pip3 install -r requirements.txt
 ### Optional Arguments
 -o --OUTPUT: Define the output file
 
--b --BARWIDTH: Sets the width of each bar in the final image (Default: 5)
+-w --BARWIDTH: Sets the width of each bar in the final image (Default: 5)
 
 -i --INTERVAL: Defines the interval where the frames get picked out of the video (Default: 1000 == every Second)
 
