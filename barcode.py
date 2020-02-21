@@ -98,7 +98,6 @@ def concat(barwidth, barsrc):
     finalimg.save(options.output)
     finalimg.show()
 
-
 def reziseframes(imgsrc, barwidth, barsrc):
     frames = os.listdir(imgsrc)
     frames = natsorted(frames)
