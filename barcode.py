@@ -39,7 +39,6 @@ def checkfile(file, options):
     else:
         print('This file does not exist!')
         exit()
-    print(options.source[-4:])
     if options.source[-4:] == '.mp4':
         pass
     else:
