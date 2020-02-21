@@ -23,6 +23,8 @@ sudo pip3 install -r requirements.txt
 
 -w --BARWIDTH: Sets the width of each bar in the final image (Default: 5)
 
+--height: Sets the height of the final image (Default: same as src-video)
+
 -i --INTERVAL: Defines the interval where the frames get picked out of the video (Default: 1000 == every Second)
 
 --> If you use a long clip (more than 15 Minutes) i would suggest using a value around 10000
