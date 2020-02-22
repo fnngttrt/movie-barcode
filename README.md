@@ -17,6 +17,8 @@ Bar-width 15px
 ![Barcode with bar-width 15](https://i.imgur.com/qHLmMiQ.jpg)
 
 ## Installation
+ffmpeg needs to be installed!
+
 ```
 git clone https://github.com/therealhe1ko/movie-barcode/
 cd movie-barcode/
