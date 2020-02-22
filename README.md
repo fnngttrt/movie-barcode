@@ -13,6 +13,9 @@ Standard Bar-width
 Bar-width 15px
 ![Barcode with bar-width 15](https://i.imgur.com/qHLmMiQ.jpg)
 
+Exaple from a 20 Minute tv-show (interval: 1000)
+![Barcode from tv-show](https://i.imgur.com/AxsmbtA.jpg)
+
 ## Installation
 ffmpeg needs to be installed!
 
