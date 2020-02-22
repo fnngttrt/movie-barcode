@@ -59,10 +59,10 @@ def checkfile(file, options):
     else:
         print('This file does not exist!')
         exit()
-    if options.source[-4:] == '.mp4':
+    if options.source[-4:] in ('.mp4', '.mpg'):
         pass
     else:
-        print('Error: Only mp4 videos are supported!')
+        print('Error: Only mp4 and mpg videos are supported!')
         exit()
 
 def verboseout(verb):
