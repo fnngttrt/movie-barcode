@@ -1,6 +1,3 @@
-# THIS IS THE BETA-BRANCH
-# IT IS VERY UNSTABLE
-# PLEASE ONLY USE THE MASTER-BRANCH FOR OPTIMAL PERFORMANCE
 
 # movie-barcode
 A simple program to create movie-barcodes
