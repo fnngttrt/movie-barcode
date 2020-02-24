@@ -108,6 +108,25 @@ def reziseframes(imgsrc, barwidth, barsrc):
             out = img.resize((barwidth, height), resample=0, box=None)
             out.save(os.path.join(barsrc, item))
 
+def avgcolor(imgsrc):
+    frames = os.listdir(imgsrc)
+    frames = natsorted(frames)
+    for item in frames:
+        rt, gt, bt = 0, 0, 0
+        c = 0
+        with Image.open(os.path.join(imgsrc, item)) as img:
+            width, height = img.size
+            rgb_img = img.convert('RGB')
+            for i in range(0, width-1):
+                for j in range(0, height-1):
+                    r, g, b = rgb_img.getpixel((i, j))
+                    rt += r
+                    gt += g
+                    bt += b
+                    c += 1
+        print('avg: rgb({}, {}, {})'.format(round(rt / c), round(gt / c), round(bt / c)))
+        input()
+
 checkfile(src, options)
 startup(imgsrc, barsrc)
 print('Getting Individual frames...')
