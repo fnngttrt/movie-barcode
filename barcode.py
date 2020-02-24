@@ -9,10 +9,12 @@ import optparse
 parser = optparse.OptionParser()
 parser.add_option('-s', '--src', action='store', dest="source", help='The input-file')
 parser.add_option('-o', '--output', action='store', dest="output", help='The output file-name (default: final.jpg)', default='final.jpg')
+parser.add_option('--avg', action="store_true", dest="modeavg", help="Instead of using the compressing images, the average color of them will be used (default: false)", default=False)
 parser.add_option('-w', '--bar-width', action="store", dest="barwidth", help='The width of each bar in the final image (default: 5px)', default=5)
 parser.add_option('--height', action="store", dest="barheight", help="The height of the final image (Default: same as src-video)", default="auto")
 parser.add_option('-i', '--interval', action="store", dest="interval", help="The interval where each frame gets picked out of the video (default: 1000 (ms))", default=1000)
 parser.add_option('-v', '--verbose', action="store_true", dest="verbose", help="Enables verbose-output")
+
 
 options, args = parser.parse_args()
 
@@ -33,6 +35,7 @@ frame = 1
 second = int(options.interval)
 barwidth = int(options.barwidth)
 finalheight = 0
+avgcolors = dict()
 
 def checkfile(file, options):
     if os.path.isfile(file):
@@ -98,6 +101,9 @@ def concat(barwidth, barsrc):
     finalimg.save(options.output)
     finalimg.show()
 
+def concatavg(avgcolors):
+    pass
+
 def reziseframes(imgsrc, barwidth, barsrc):
     frames = os.listdir(imgsrc)
     frames = natsorted(frames)
@@ -108,7 +114,7 @@ def reziseframes(imgsrc, barwidth, barsrc):
             out = img.resize((barwidth, height), resample=0, box=None)
             out.save(os.path.join(barsrc, item))
 
-def avgcolor(imgsrc):
+def avgcolor(imgsrc, avgcolors):
     frames = os.listdir(imgsrc)
     frames = natsorted(frames)
     for item in frames:
@@ -124,8 +130,7 @@ def avgcolor(imgsrc):
                     gt += g
                     bt += b
                     c += 1
-        print('avg: rgb({}, {}, {})'.format(round(rt / c), round(gt / c), round(bt / c)))
-        input()
+        avgcolors[item] = 'rbg({}, {}, {})'.format(round(rt / c), round(gt / c), round(bt / c))
 
 checkfile(src, options)
 startup(imgsrc, barsrc)
@@ -133,8 +138,15 @@ print('Getting Individual frames...')
 getframes(src, frame, second)
 print('Resizing frames...')
 reziseframes(imgsrc, barwidth, barsrc)
+if options.modeavg:
+    avgcolor(barsrc, avgcolors)
+else:
+    pass
 print('Putting frames together...')
-concat(barwidth, barsrc)
+if options.modeavg:
+    concatavg(barwidth)
+else:
+    concat(barwidth, barsrc)
 print('Cleaning up...')
 cleanup(imgsrc, barsrc)
 print('Finished!')
