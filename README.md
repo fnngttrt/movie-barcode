@@ -1,6 +1,13 @@
 # movie-barcode
 A simple program to create movie-barcodes
 
+### Table of contents
+#### 1. Explanation
+#### 2. Examples
+#### 3. Usage
+#### 4. Optional Arguments
+#### 5. Common errors
+
 ## What are movie barcodes?
 Its a technique, where every frame in a movie gets compressed into a line, giving an idea of the colour palette used by the filmmakers.
 And it looks really cool!
@@ -23,9 +30,12 @@ sudo pip3 install -r requirements.txt
 ./barcode.py -s SOURCE 
 
 ### Optional Arguments
+```
 -o --OUTPUT: Define the output file
 
 -w --BARWIDTH: Sets the width of each bar in the final image (Default: 5)
+
+--avg: Uses the avg color of each frame, instead of a compressed version of the image. (Default: False)
 
 --height: Sets the height of the final image (Default: same as src-video)
 
@@ -36,7 +46,7 @@ sudo pip3 install -r requirements.txt
 --> Otherwise the program uses too much disk-space
 
 -v --VERBOSE: Enables verbose output
-
+```
 ### Errors:
 
 #### I'm getting this warning:
