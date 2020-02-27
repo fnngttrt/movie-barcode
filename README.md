@@ -1,9 +1,10 @@
+
 # movie-barcode
 A simple program to create movie-barcodes
 
 ### Table of contents
 #### 1. Explanation
-#### 2. Usage
+#### 2. Installation & Usage
 #### 3. Optional Arguments
 #### 4. Examples
 #### 5. Common errors
@@ -12,7 +13,10 @@ A simple program to create movie-barcodes
 Its a technique, where every frame in a movie gets compressed into a line, giving an idea of the colour palette used by the filmmakers.
 And it looks really cool!
 
+
 ## Installation
+ffmpeg needs to be installed!
+
 ```
 git clone https://github.com/therealhe1ko/movie-barcode/
 cd movie-barcode/

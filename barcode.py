@@ -1,10 +1,14 @@
 #!/usr/bin/python3
 
+import contextlib
+with contextlib.redirect_stdout(None):
+    import pygame
 import cv2
 from PIL import Image
 import os
 from natsort import natsorted
 import optparse
+from moviepy.editor import VideoFileClip
 
 parser = optparse.OptionParser()
 parser.add_option('-s', '--src', action='store', dest="source", help='The input-file')
@@ -38,16 +42,31 @@ finalheight = 0
 global avgcolors
 avgcolors = list()
 
+def calclenght(options):
+    print('Calculating lenght...')
+    clip = VideoFileClip(options.source)
+    dur = clip.duration
+    minu =  round(dur / (options.interval / 1000))
+    clip.close()
+    print('This will generate around: ' + str(minu) + ' indivual frames with around 70-1000 kbit each.')
+    print('This means, in the process of creating the final image disk-space around ' + str(minu * 500) + ' kbit will be occupied (they get deleted automatically)')
+    print('Do you want to continue? (Y/N):')
+    if input('> ') in ('y', 'Y'):
+        pass
+    else:
+        print('Exiting...')
+        exit()
+
 def checkfile(file, options):
     if os.path.isfile(file):
         pass
     else:
         print('This file does not exist!')
         exit()
-    if options.source[-4:] == '.mp4':
+    if options.source[-4:] in ('.mp4', '.mpg'):
         pass
     else:
-        print('Error: Only mp4 videos are supported!')
+        print('Error: Only mp4 and mpg videos are supported!')
         exit()
 
 def verboseout(verb):
@@ -154,6 +173,7 @@ def avgcolor(imgsrc):
 
 checkfile(src, options)
 startup(imgsrc, barsrc)
+calclenght(options)
 print('Getting Individual frames...')
 getframes(src, frame, second)
 print('Resizing frames...')
