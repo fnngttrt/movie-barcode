@@ -1,5 +1,7 @@
 
-# movie-barcode
+<div align="center">
+<h1>movie-barcode</h1>
+</div>
 A simple program to create movie-barcodes
 
 ### Table of contents
