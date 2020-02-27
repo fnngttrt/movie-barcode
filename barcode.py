@@ -127,7 +127,10 @@ def reziseframes(imgsrc, barwidth, barsrc):
         with Image.open(os.path.join(imgsrc, item)) as img:
             verboseout('Cropping frame: ' + item)
             width, height = img.size
-            out = img.resize((barwidth, height), resample=0, box=None)
+            if options.barheight:
+                out = img.resize((barwidth, height), resample=0, box=None)
+            else:
+                out = img.resize((barwidth, int(options.barheight)), resample=0, box=None)
             out.save(os.path.join(barsrc, item))
 
 def avgcolor(imgsrc):
