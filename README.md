@@ -36,3 +36,11 @@ sudo pip3 install -r requirements.txt
 --> Otherwise the program uses too much disk-space
 
 -v --VERBOSE: Enables verbose output
+
+### Errors:
+
+#### I'm getting this warning:
+
+``` [h264 @ 0x2557340] mmco: unref short failure ```
+
+This comes from ffmpeg, but its not critical. Theres no fix currently
