@@ -35,7 +35,8 @@ frame = 1
 second = int(options.interval)
 barwidth = int(options.barwidth)
 finalheight = 0
-avgcolors = dict()
+global avgcolors
+avgcolors = list()
 
 def checkfile(file, options):
     if os.path.isfile(file):
@@ -101,8 +102,23 @@ def concat(barwidth, barsrc):
     finalimg.save(options.output)
     finalimg.show()
 
-def concatavg(avgcolors):
-    pass
+def concatavg(barwidth, barsrc):
+    posx = 0
+    bars = os.listdir(barsrc)
+    if options.barheight == 'auto':
+        im = Image.open(os.path.join(barsrc, bars[0]))
+        width, height = im.size
+        im.close()
+    else:
+        height = int(options.barheight)
+    width = len(bars) * barwidth
+    finalimg = Image.new('RGB', (width, height))
+    for color in avgcolors:
+        tempimg = Image.new('RGB', size=(width, height), color=color)
+        finalimg.paste(tempimg, (posx, 0))
+        posx += barwidth
+    finalimg.save(options.output)
+    finalimg.show()
 
 def reziseframes(imgsrc, barwidth, barsrc):
     frames = os.listdir(imgsrc)
@@ -114,7 +130,7 @@ def reziseframes(imgsrc, barwidth, barsrc):
             out = img.resize((barwidth, height), resample=0, box=None)
             out.save(os.path.join(barsrc, item))
 
-def avgcolor(imgsrc, avgcolors):
+def avgcolor(imgsrc):
     frames = os.listdir(imgsrc)
     frames = natsorted(frames)
     for item in frames:
@@ -130,7 +146,8 @@ def avgcolor(imgsrc, avgcolors):
                     gt += g
                     bt += b
                     c += 1
-        avgcolors[item] = 'rbg({}, {}, {})'.format(round(rt / c), round(gt / c), round(bt / c))
+        templis = (round(rt / c), round(gt / c), round(bt / c))
+        avgcolors.append(templis)
 
 checkfile(src, options)
 startup(imgsrc, barsrc)
@@ -139,12 +156,12 @@ getframes(src, frame, second)
 print('Resizing frames...')
 reziseframes(imgsrc, barwidth, barsrc)
 if options.modeavg:
-    avgcolor(barsrc, avgcolors)
+    avgcolor(barsrc)
 else:
     pass
 print('Putting frames together...')
 if options.modeavg:
-    concatavg(barwidth)
+    concatavg(barwidth, barsrc)
 else:
     concat(barwidth, barsrc)
 print('Cleaning up...')
