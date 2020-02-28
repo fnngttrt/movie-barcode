@@ -19,6 +19,7 @@ parser.add_option('-w', '--bar-width', action="store", dest="barwidth", help='Th
 parser.add_option('--height', action="store", dest="barheight", help="The height of the final image (Default: same as src-video)", default="auto")
 parser.add_option('-i', '--interval', action="store", dest="interval", help="The interval where each frame gets picked out of the video (default: 1000 (ms))", default=1000)
 parser.add_option('-v', '--verbose', action="store_true", dest="verbose", help="Enables verbose-output")
+parser.add_option('--nocleanup', action="store_true", dest="noclean", help="Does not delete frames, and bars which get created in the process (default: False)", default=False)
 
 
 options, args = parser.parse_args()
@@ -194,8 +195,11 @@ if options.modeavg:
     concatavg(barwidth, barsrc)
 else:
     concat(barwidth, barsrc)
-print('Cleaning up...')
-cleanup(imgsrc, barsrc)
+if not options.noclean:
+    print('Cleaning up...')
+    cleanup(imgsrc, barsrc)
+else:
+    pass
 print('Finished!')
 print('Saved as \'' + options.output + '\'')
 print('Press enter to exit!')
