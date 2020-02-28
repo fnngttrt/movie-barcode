@@ -47,6 +47,8 @@ sudo pip3 install -r requirements.txt
 --> Otherwise the program uses too much disk-space
 
 -v --VERBOSE: Enables verbose output
+
+--nocleanup: Do not delete the frames and bars after the image gets created
 ```
 
 
