@@ -4,7 +4,7 @@ import contextlib
 with contextlib.redirect_stdout(None):
     import pygame
 import cv2
-from PIL import Image
+from PIL import Image, ImageFilter
 import os
 from natsort import natsorted
 import optparse
@@ -14,6 +14,7 @@ parser = optparse.OptionParser()
 parser.add_option('-s', '--src', action='store', dest="source", help='The input-file')
 parser.add_option('-o', '--output', action='store', dest="output", help='The output file-name (default: final.jpg)', default='final.jpg')
 parser.add_option('--avg', action="store_true", dest="modeavg", help="Instead of using the compressing images, the average color of them will be used (default: false)", default=False)
+parser.add_option('--blur', action="store", dest="blur", help="This adds a light blur to the final img (default: false)", default=False)
 parser.add_option('-w', '--bar-width', action="store", dest="barwidth", help='The width of each bar in the final image (default: 5px)', default=5)
 parser.add_option('--height', action="store", dest="barheight", help="The height of the final image (Default: same as src-video)", default="auto")
 parser.add_option('-i', '--interval', action="store", dest="interval", help="The interval where each frame gets picked out of the video (default: 1000 (ms))", default=1000)
@@ -103,6 +104,14 @@ def getframes(src, frame, second):
         else:
             break
 
+def saveimg(finalimg):
+    if options.blur:
+        finalimg = finalimg.filter(ImageFilter.BLUR)
+    else:
+        pass
+    finalimg.save(options.output)
+    finalimg.show()
+
 def concat(barwidth, barsrc):
     posx = 0
     bars = os.listdir(barsrc)
@@ -118,8 +127,7 @@ def concat(barwidth, barsrc):
         im = Image.open(os.path.join(barsrc, item))
         finalimg.paste(im, (posx, 0))
         posx += barwidth
-    finalimg.save(options.output)
-    finalimg.show()
+    saveimg(finalimg)
 
 def concatavg(barwidth, barsrc):
     posx = 0
@@ -136,8 +144,7 @@ def concatavg(barwidth, barsrc):
         tempimg = Image.new('RGB', size=(width, height), color=color)
         finalimg.paste(tempimg, (posx, 0))
         posx += barwidth
-    finalimg.save(options.output)
-    finalimg.show()
+    saveimg(finalimg)
 
 def reziseframes(imgsrc, barwidth, barsrc):
     frames = os.listdir(imgsrc)
