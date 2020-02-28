@@ -36,6 +36,8 @@ sudo pip3 install -r requirements.txt
 
 --avg: Uses the avg color of each frame, instead of a compressed version of the image. (Default: False)
 
+--blur: Adds a light blur to the final image (Default: False)
+
 --height: Sets the height of the final image (Default: same as src-video)
 
 -i --INTERVAL: Defines the interval where the frames get picked out of the video (Default: 1000 == every Second)
